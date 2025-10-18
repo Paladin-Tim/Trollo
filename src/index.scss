@@ -31,11 +31,11 @@ h1 {
   background-color: #fff;
   width: 100vw;
   display: flex;
-}
 
-.main {
-  width: 90vw;
-  flex: 1 0 0;
+  & .main {
+    width: 90vw;
+    flex: 1 0 0;
+  }
 }
 
 // @media (prefers-color-scheme: light) {
