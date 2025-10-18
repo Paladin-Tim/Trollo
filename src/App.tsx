@@ -1,7 +1,7 @@
-//import { useState } from "react";
 import { Routes, Route } from "react-router-dom";
 import { Header } from "./components";
 import { Sidebar } from "./components";
+import { Authorization } from "./pages";
 import "./App.scss";
 
 export const App = () => {
@@ -11,10 +11,9 @@ export const App = () => {
       <main className="main">
         <Header />
         <article className="content">
-          <h2>Контент страницы</h2>
           <Routes>
             <Route path="/" element={<div>Главная</div>} />
-            <Route path="/login" element={<div>Авторизация</div>} />
+            <Route path="/login" element={<Authorization />} />
             <Route path="/register" element={<div>Регистрация</div>} />
             <Route path="/users" element={<div>Пользователи</div>} />
             <Route path="/bids/:bidId" element={<div>Заявка</div>} />
