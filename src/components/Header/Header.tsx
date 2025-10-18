@@ -1,5 +1,5 @@
 import { SearchBar } from "./SearchBar";
-import { ControlPanel } from "../ControlPanel";
+import { ControlPanel } from "./ControlPanel";
 import "./Header.scss";
 
 export const Header = () => {

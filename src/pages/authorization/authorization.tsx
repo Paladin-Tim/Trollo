@@ -70,12 +70,12 @@ export const Authorization = () => {
         className="userForm"
         validateTrigger="onBlur"
       >
-        <h3 className="formTitle">Authorization</h3>
+        <h3 className="formTitle">Авторизация</h3>
         <Form.Item name="login" rules={formRules.login}>
-          <Input placeholder="Login"></Input>
+          <Input placeholder="Логин"></Input>
         </Form.Item>
         <Form.Item name="password" rules={formRules.password}>
-          <Input.Password placeholder="Password"></Input.Password>
+          <Input.Password placeholder="Пароль"></Input.Password>
         </Form.Item>
         <Button
           // onClick={onFormSubmit}
@@ -86,7 +86,7 @@ export const Authorization = () => {
           form={form}
           disabled={!submittable}
         >
-          Log in
+          Войти
         </Button>
         {serverError && <ValidationError errorText={serverError} />}
         <div className="tip">
