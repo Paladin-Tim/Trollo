@@ -1,0 +1,11 @@
+.logo {
+  mask-image: url("../../../assets/Trollface.svg");
+  background-color: #fff;
+  mask-repeat: no-repeat;
+  mask-position: center;
+  mask-size: 100%;
+  aspect-ratio: 1/1;
+  height: 4rem;
+  width: 4rem;
+  transform: scaleX(-1);
+}
