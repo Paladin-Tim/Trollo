@@ -1,31 +1,29 @@
-import { useState } from "react";
-import "./App.css";
+//import { useState } from "react";
 import { Routes, Route } from "react-router-dom";
-
-const Header = () => {
-  return <div>Шапка</div>;
-};
-const Footer = () => {
-  return <div>Футер</div>;
-};
+import { Header } from "./components";
+import { Sidebar } from "./components";
+import "./App.scss";
 
 export const App = () => {
   return (
-    <>
-      <Header />
-      <div>
-        <h2>Контент страницы</h2>
-        <Routes>
-          <Route path="/" element={<div>Главная</div>} />
-          <Route path="/login" element={<div>Авторизация</div>} />
-          <Route path="/register" element={<div>Регистрация</div>} />
-          <Route path="/users" element={<div>Пользователи</div>} />
-          <Route path="/bids/:bidId" element={<div>Заявка</div>} />
-          <Route path="/bid" element={<div>Новая заявка</div>} />
-          <Route path="*" element={<div>Ошибка</div>} />
-        </Routes>
-      </div>
-      <Footer />
-    </>
+    <article className="app-wrapper">
+      <Sidebar />
+      <main className="main">
+        <Header />
+        <article className="content">
+          <h2>Контент страницы</h2>
+          <Routes>
+            <Route path="/" element={<div>Главная</div>} />
+            <Route path="/login" element={<div>Авторизация</div>} />
+            <Route path="/register" element={<div>Регистрация</div>} />
+            <Route path="/users" element={<div>Пользователи</div>} />
+            <Route path="/bids/:bidId" element={<div>Заявка</div>} />
+            <Route path="/bid" element={<div>Новая заявка</div>} />
+            <Route path="/settings" element={<div>Настройки</div>} />
+            <Route path="*" element={<div>Ошибка</div>} />
+          </Routes>
+        </article>
+      </main>
+    </article>
   );
 };
