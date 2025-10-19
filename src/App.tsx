@@ -3,6 +3,7 @@ import { Header } from "./components";
 import { Sidebar } from "./components";
 import { Authorization } from "./pages";
 import "./App.scss";
+import { Registration } from "./pages/registration";
 
 export const App = () => {
   return (
@@ -14,7 +15,7 @@ export const App = () => {
           <Routes>
             <Route path="/" element={<div>Главная</div>} />
             <Route path="/login" element={<Authorization />} />
-            <Route path="/register" element={<div>Регистрация</div>} />
+            <Route path="/register" element={<Registration />} />
             <Route path="/users" element={<div>Пользователи</div>} />
             <Route path="/bids/:bidId" element={<div>Заявка</div>} />
             <Route path="/bid" element={<div>Новая заявка</div>} />
