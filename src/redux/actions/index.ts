@@ -6,7 +6,7 @@ export * from "./delete-user";
 export * from "./save-user-role";
 export * from "./get-posts";
 export * from "./edit-post";
-export * from "./set-post";
+export * from "./set-bid";
 export * from "./reset-post";
 export * from "./delete-post";
 export * from "./add-comment";
