@@ -59,7 +59,7 @@ export const Registration = () => {
   const onFormSubmit = () => {
     const { login, password } = form.getFieldsValue();
 
-    request("/register", "POST", { login, password }).then(
+    request("/api/register", "POST", { login, password }).then(
       ({ user, error }) => {
         if (error) {
           setServerError(error);

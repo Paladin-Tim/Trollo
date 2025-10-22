@@ -1,10 +1,6 @@
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
-import {
-  selectUserRole,
-  selectUserLogin,
-  selectUserSession,
-} from "../../../redux/selectors";
+import { selectUserRole, selectUserLogin } from "../../../redux/selectors";
 import { logout } from "../../../redux/actions";
 import { Button } from "antd";
 import { LoginOutlined, UserOutlined, LogoutOutlined } from "@ant-design/icons";
@@ -14,7 +10,6 @@ export const ControlPanel = () => {
 
   const roleId = useSelector(selectUserRole);
   const login = useSelector(selectUserLogin);
-  const session = useSelector(selectUserSession);
 
   return (
     <section className="header__control-panel">
@@ -32,10 +27,8 @@ export const ControlPanel = () => {
           <Button
             type="primary"
             icon={<LogoutOutlined />}
-            onClick={dispatch(logout(session))}
-          >
-            {login}
-          </Button>
+            onClick={() => dispatch(logout())}
+          ></Button>
         </>
       )}
     </section>
