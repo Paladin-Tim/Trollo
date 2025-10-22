@@ -1,11 +1,12 @@
 import { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
-// import { setUser } from "../../redux/actions/set-user";
+import { setUser } from "../../redux/actions/set-user";
 // import { server, sessions } from "../../bff";
 import { ValidationError } from "../../components";
 import { Form, Input, Button } from "antd";
 import "../authorization/authorization.scss";
+import { request } from "../../utils/request";
 
 export const Registration = () => {
   const [form] = Form.useForm();
@@ -52,26 +53,25 @@ export const Registration = () => {
       .catch(() => setSubmittable(false));
   }, [form, values]);
 
-  //   const dispatch = useDispatch();
-  //   const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
 
-  //   const onFormSubmit = () => {
-  //     const { login, password } = form.getFieldsValue();
+  const onFormSubmit = () => {
+    const { login, password } = form.getFieldsValue();
 
-  //     server.register(login, password).then(({ res, error }) => {
-  //       if (error) {
-  //         setServerError(error);
-  //         return;
-  //       }
-  //       dispatch(setUser(res));
-  //       sessionStorage.setItem(
-  //         "userData",
-  //         JSON.stringify({ ...sessions.list[res.session], session: res.session })
-  //       );
-  //       form.resetFields();
-  //       navigate("/");
-  //     });
-  //   };
+    request("/register", "POST", { login, password }).then(
+      ({ user, error }) => {
+        if (error) {
+          setServerError(error);
+          return;
+        }
+        dispatch(setUser(user));
+        sessionStorage.setItem("userData", JSON.stringify(user));
+        form.resetFields();
+        navigate("/");
+      }
+    );
+  };
 
   return (
     <article className="userForm__wrapper">
@@ -96,7 +96,7 @@ export const Registration = () => {
           <Input.Password placeholder="Повтор пароля"></Input.Password>
         </Form.Item>
         <Button
-          //   onClick={onFormSubmit}
+          onClick={onFormSubmit}
           type="primary"
           htmlType="submit"
           className="submitBtn"
