@@ -1,8 +1,8 @@
 import { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
-// import { setUser } from "../../redux/actions/set-user";
-// import { server, sessions } from "../../bff";
+import { setUser } from "../../redux/actions/set-user";
+import { request } from "../../utils/request";
 import { ValidationError } from "../../components";
 import { Form, Input, Button } from "antd";
 import "./authorization.scss";
@@ -40,27 +40,26 @@ export const Authorization = () => {
       .catch(() => setSubmittable(false));
   }, [form, values]);
 
-  //   const dispatch = useDispatch();
-  //   const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
 
-  //   const onFormSubmit = () => {
-  //     const { login, password } = form.getFieldsValue();
+  const onFormSubmit = () => {
+    const { login, password } = form.getFieldsValue();
 
-  //     server.authorize(login, password).then(({ res, error }) => {
-  //       if (error) {
-  //         setServerError(error);
-  //         return;
-  //       }
+    request("/api/login", "POST", { login, password }).then(
+      ({ user, error }) => {
+        if (error) {
+          setServerError(error);
+          return;
+        }
 
-  //       dispatch(setUser(res));
-  //       sessionStorage.setItem(
-  //         "userData",
-  //         JSON.stringify({ ...sessions.list[res.session], session: res.session })
-  //       );
-  //       form.resetFields();
-  //       navigate("/");
-  //     });
-  //   };
+        dispatch(setUser(user));
+        sessionStorage.setItem("userData", JSON.stringify(user));
+        form.resetFields();
+        navigate("/");
+      }
+    );
+  };
 
   return (
     <article className="userForm__wrapper">
@@ -78,7 +77,7 @@ export const Authorization = () => {
           <Input.Password placeholder="Пароль"></Input.Password>
         </Form.Item>
         <Button
-          // onClick={onFormSubmit}
+          onClick={onFormSubmit}
           type="primary"
           htmlType="submit"
           className="submitBtn"

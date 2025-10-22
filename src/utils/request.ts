@@ -1,7 +1,7 @@
 export function request(url, method, data) {
   return fetch(url, {
     headers: {
-      "content-type": "application/json",
+      "Content-Type": "application/json",
     },
     method: method || "GET",
     body: data ? JSON.stringify(data) : undefined,

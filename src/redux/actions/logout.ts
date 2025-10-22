@@ -1,9 +1,9 @@
-// import { server } from "../../bff";
+import { request } from "../../utils/request";
 import { ACTION_TYPES } from "./action-types";
 
-export const logout = (session) => {
-  // server.logout(session);
-  // return {
-  //   type: ACTION_TYPES.LOGOUT,
-  // };
+export const logout = () => {
+  request("/api/logout", "POST");
+  return {
+    type: ACTION_TYPES.LOGOUT,
+  };
 };
