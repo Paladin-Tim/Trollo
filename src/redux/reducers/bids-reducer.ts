@@ -1,7 +1,11 @@
-const initialBidsState = {};
+import { ACTION_TYPES } from "../actions";
 
-export const bidsReducer = (state = initialBidsState, action) => {
-  switch (action.type) {
+const initialState = {};
+
+export const bidsReducer = (state = initialState, { type, payload }) => {
+  switch (type) {
+    case ACTION_TYPES.GET_BID:
+      return { ...payload };
     default:
       return state;
   }
