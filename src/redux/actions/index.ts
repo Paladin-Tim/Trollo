@@ -11,3 +11,4 @@ export * from "./reset-post";
 export * from "./delete-post";
 export * from "./add-comment";
 export * from "./delete-comment";
+export * from "./delete-comment-async";

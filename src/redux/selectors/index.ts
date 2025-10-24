@@ -4,4 +4,4 @@ export * from "./select-user-id";
 export * from "./select-user-session";
 export * from "./select-users-list";
 export * from "./select-bid";
-export * from "./select-posts-list";
+export * from "./select-bids-list";
