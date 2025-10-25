@@ -1,9 +1,9 @@
 import { useState } from "react";
 import { useDispatch } from "react-redux";
-// import { server } from "../../../bff";
 import { saveUserRole, deleteUser } from "../../../redux/actions";
 import { Button, Select } from "antd";
 import { SaveOutlined, DeleteOutlined } from "@ant-design/icons";
+import { request } from "../../../utils/request";
 
 export const UserRow = ({ id, login, registredAt, roleId, roles }) => {
   const [newRoleId, setNewRoleId] = useState(roleId);
@@ -20,18 +20,20 @@ export const UserRow = ({ id, login, registredAt, roleId, roles }) => {
     setIsDisabled(false);
   };
 
-  //   const handleSaveUserClick = () => {
-  //     server.updateUserRole(id, newRoleId).then(({ res }) => {
-  //       dispatch(saveUserRole(res));
-  //       setIsDisabled(true);
-  //     });
-  //   };
+  const handleSaveUserClick = () => {
+    request(`api/users/${id}`, "PATCH", { roleId: newRoleId }).then(
+      ({ data }) => {
+        dispatch(saveUserRole(data));
+        setIsDisabled(true);
+      }
+    );
+  };
 
-  //   const handleDeleteUserClick = () => {
-  //     server.removeUser(id).then(({ res }) => {
-  //       dispatch(deleteUser(res));
-  //     });
-  //   };
+  const handleDeleteUserClick = () => {
+    request(`/api/users/${id}`, "DELETE").then(({ data }) => {
+      dispatch(deleteUser(data));
+    });
+  };
 
   return (
     <section className="userInfo__wrapper">
@@ -50,11 +52,11 @@ export const UserRow = ({ id, login, registredAt, roleId, roles }) => {
       <Button
         icon={<SaveOutlined />}
         disabled={isDisabled}
-        // onClick={handleSaveUserClick}
+        onClick={handleSaveUserClick}
       ></Button>
       <Button
         icon={<DeleteOutlined />}
-        // onClick={handleDeleteUserClick}
+        onClick={handleDeleteUserClick}
       ></Button>
     </section>
   );

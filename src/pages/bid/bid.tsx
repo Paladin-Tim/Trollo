@@ -3,11 +3,14 @@ import { useDispatch, useSelector } from "react-redux";
 import { useMatch, useParams } from "react-router-dom";
 import { setBid } from "../../redux/actions";
 import { selectBid, selectUserRole } from "../../redux/selectors";
+import { request } from "../../utils/request";
 import { BidContent } from "./bid-content";
 import { BidComments } from "./bid-comments";
+import { BidEditForm } from "./bid-edit-form";
 import { Loader } from "../../components/Loader";
 import { GlobalError } from "../../components";
-import { request } from "../../utils/request";
+import "./bid.scss";
+import { ROLES, globalErrors } from "../../constants";
 
 export const Bid = () => {
   const bid = useSelector(selectBid);
@@ -43,15 +46,15 @@ export const Bid = () => {
   return (
     <>
       {isCreating || isEditing ? (
-        userRole !== 0 ? (
+        userRole !== ROLES.ADMIN ? (
           <GlobalError error={globalErrors.ACCESS_DENIED} />
         ) : error ? (
           <GlobalError error={error} />
         ) : isLoading ? (
           <Loader />
         ) : (
-          <article className="content__block post-edit-form">
-            {/* <PostEditForm post={post} isEditing={isEditing} /> */}
+          <article className="content__block bid-edit-form">
+            <BidEditForm bid={bid} isEditing={isEditing} />
           </article>
         )
       ) : error ? (
@@ -59,7 +62,7 @@ export const Bid = () => {
       ) : isLoading ? (
         <Loader />
       ) : (
-        <article className="bid">
+        <article className="content__block bid">
           <BidContent bid={bid} />
           <BidComments comments={bid.comments} bidId={bid.id} />
         </article>

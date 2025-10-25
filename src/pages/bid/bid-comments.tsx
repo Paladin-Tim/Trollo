@@ -28,10 +28,10 @@ export const BidComments = ({ comments, bidId }) => {
   };
 
   return (
-    <article className="blog-post__comments">
+    <article className="bid__comments">
       <h2>Комментарии</h2>
-      <section className="blog-post__comments-section">
-        <article className="blog-post__comments-list">
+      <section className="bid__comments-section">
+        <article className="bid__comments-list">
           {Object.values(comments).map(
             ({ id, author, content, publishedAt }) => (
               <Comment
@@ -46,7 +46,7 @@ export const BidComments = ({ comments, bidId }) => {
           )}
         </article>
         {userRole !== ROLES.GUEST && (
-          <article className="blog-post__new-comment">
+          <article className="bid__new-comment">
             <TextArea
               value={comment}
               placeholder="Comment..."

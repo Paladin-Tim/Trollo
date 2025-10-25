@@ -1,37 +1,38 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useServer } from "../../hooks";
 import { getUsers } from "../../redux/actions";
 import { selectUsersList } from "../../redux/selectors";
+import { request } from "../../utils/request";
 import { UserRow } from "./user-row/user-row";
-// import { ROLE } from "../../bff/constants";
 import { GlobalError } from "../../components";
+import { ROLES } from "../../constants";
+import { Loader } from "../../components/Loader";
 // import "./users.scss";
 
 export const UsersPage = () => {
   const [roles, setRoles] = useState({});
   const [error, setError] = useState(null);
+  const [isLoading, setIsLoading] = useState(true);
 
   const usersList = useSelector(selectUsersList);
 
   const dispatch = useDispatch();
 
-  //   const requestServer = useServer();
+  useEffect(() => {
+    setIsLoading(true);
+    Promise.all([request("./api/users"), request("api/users/roles")]).then(
+      ([usersRes, rolesRes]) => {
+        if (usersRes.error || rolesRes.error) {
+          setError(usersRes.error || rolesRes.error);
+          return;
+        }
 
-  //   useEffect(() => {
-  //     Promise.all([
-  //       requestServer("fetchUsers"),
-  //       requestServer("fetchRoles"),
-  //     ]).then(([usersRes, rolesRes]) => {
-  //       if (usersRes.error || rolesRes.error) {
-  //         setError(usersRes.error || rolesRes.error);
-  //         return;
-  //       }
-
-  //       dispatch(getUsers(usersRes.res));
-  //       setRoles(rolesRes.res[0]);
-  //     });
-  //   }, [dispatch, requestServer]);
+        dispatch(getUsers(usersRes.data));
+        setRoles(rolesRes.data);
+        setIsLoading(false);
+      }
+    );
+  }, [dispatch]);
 
   return (
     <article className="usersTab__wrapper">
@@ -46,16 +47,22 @@ export const UsersPage = () => {
               <div className="usersTab__colHeader">Registartion date</div>
               <div className="usersTab__colHeader">Role</div>
             </section>
-            {Object.values(usersList).map(
-              ({ id, login, registred_at, role_id }) => (
-                <UserRow
-                  key={id}
-                  id={id}
-                  login={login}
-                  registredAt={registred_at}
-                  roleId={role_id}
-                  roles={Object.values(roles).filter(({ id }) => id !== 3)}
-                />
+            {isLoading ? (
+              <Loader />
+            ) : (
+              Object.values(usersList).map(
+                ({ id, login, registredAt, roleId }) => (
+                  <UserRow
+                    key={id}
+                    id={id}
+                    login={login}
+                    registredAt={registredAt}
+                    roleId={roleId}
+                    roles={Object.values(roles).filter(
+                      ({ id }) => id !== ROLES.GUEST
+                    )}
+                  />
+                )
               )
             )}
           </article>

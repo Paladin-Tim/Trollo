@@ -5,11 +5,11 @@ const initialState = {
   regNumber: "",
   title: "",
   content: "",
-  status_id: "",
-  priority_id: "",
-  author_id: "",
-  implementer_id: "",
-  published_at: "",
+  status: "",
+  priority: "",
+  author: "",
+  implementer: "",
+  publishedAt: "",
   comments: {},
 };
 
