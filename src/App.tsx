@@ -31,8 +31,8 @@ export const App = () => {
             <Route path="/register" element={<Registration />} />
             <Route path="/users" element={<UsersPage />} />
             <Route path="/bids/:id" element={<Bid />} />
-            <Route path="/bids/:id/edit" element={<Bid />} />
-            <Route path="/bid" element={<div>Новая заявка</div>} />
+            <Route path="/bid/:id/edit" element={<Bid />} />
+            <Route path="/bid" element={<Bid />} />
             <Route path="/settings" element={<div>Настройки</div>} />
             <Route path="*" element={<div>Ошибка</div>} />
           </Routes>

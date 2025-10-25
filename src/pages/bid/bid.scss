@@ -1,0 +1,9 @@
+.bid {
+  &__status {
+    .status__tag {
+      aspect-ratio: 1/1;
+      width: 1rem;
+      border-radius: 50%;
+    }
+  }
+}

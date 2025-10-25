@@ -8,7 +8,7 @@ export * from "./get-posts";
 export * from "./edit-post";
 export * from "./set-bid";
 export * from "./reset-post";
-export * from "./delete-post";
+export * from "./delete-bid";
 export * from "./add-comment";
 export * from "./delete-comment";
 export * from "./delete-comment-async";
