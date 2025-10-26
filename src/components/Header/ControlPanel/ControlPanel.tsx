@@ -30,9 +30,14 @@ export const ControlPanel = () => {
     setColor(ColorList[randomIndex]);
   }, []);
 
+  const handleLogOutClick = () => {
+    dispatch(logout());
+    sessionStorage.clear();
+  };
+
   return (
     <section className="header__control-panel">
-      {roleId !== ROLES.ADMIN && roleId !== ROLES.EMPLOYEE ? (
+      {roleId === ROLES.GUEST ? (
         <Link to="/login">
           <Button type="primary" icon={<LoginOutlined />}>
             Войти
@@ -50,7 +55,7 @@ export const ControlPanel = () => {
           <Button
             type="primary"
             icon={<LogoutOutlined />}
-            onClick={() => dispatch(logout())}
+            onClick={() => handleLogOutClick()}
           ></Button>
         </>
       )}

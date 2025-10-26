@@ -1,6 +1,6 @@
 import { Routes, Route } from "react-router-dom";
 import { Header, Sidebar, PageContent } from "./components";
-import { Authorization, Registration, UsersPage, Bid } from "./pages";
+import { Authorization, Registration, UsersPage, Bid, MainPage } from "./pages";
 import { useLayoutEffect } from "react";
 import { setUser } from "./redux/actions";
 import { useDispatch } from "react-redux";
@@ -26,7 +26,7 @@ export const App = () => {
         <Header />
         <article className="content">
           <Routes>
-            <Route path="/" element={<div>Главная</div>} />
+            <Route path="/" element={<MainPage />} />
             <Route path="/login" element={<Authorization />} />
             <Route path="/register" element={<Registration />} />
             <Route path="/users" element={<UsersPage />} />

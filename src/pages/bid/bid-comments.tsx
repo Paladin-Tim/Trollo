@@ -47,6 +47,7 @@ export const BidComments = ({ comments, bidId }) => {
         </article>
         {userRole !== ROLES.GUEST && (
           <article className="bid__new-comment">
+            {console.log(userRole)}
             <TextArea
               value={comment}
               placeholder="Comment..."
