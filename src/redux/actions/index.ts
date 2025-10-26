@@ -4,7 +4,7 @@ export * from "./logout";
 export * from "./get-users";
 export * from "./delete-user";
 export * from "./save-user-role";
-export * from "./get-posts";
+export * from "./get-bids";
 export * from "./edit-bid";
 export * from "./set-bid";
 export * from "./reset-post";

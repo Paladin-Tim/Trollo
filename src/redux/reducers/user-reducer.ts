@@ -3,7 +3,7 @@ import { ACTION_TYPES } from "../actions/action-types";
 const initialState = {
   id: null,
   login: null,
-  role_id: 3,
+  roleId: 2,
   session: null,
 };
 
