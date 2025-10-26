@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { selectUserRole } from "../../redux/selectors";
-import { addComment } from "../../redux/actions";
+import { addComment, setBid } from "../../redux/actions";
 import { request } from "../../utils/request";
 import { Comment } from "./comment";
 import { Button, Input } from "antd";
@@ -20,8 +20,8 @@ export const BidComments = ({ comments, bidId }) => {
   const handleAddComment = (bidId) => {
     request(`/api/bids/${bidId}/comments`, "POST", { content: comment }).then(
       ({ data }) => {
-        console.log(data);
         dispatch(addComment(data));
+        // dispatch(setBid(bidId));
         setComment("");
       }
     );

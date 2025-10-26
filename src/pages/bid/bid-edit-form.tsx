@@ -2,7 +2,7 @@ import { useLayoutEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 // import { server } from "../../bff";
-import { editPost, getUsers, setPost } from "../../redux/actions";
+import { getUsers, setBid, editBid } from "../../redux/actions";
 import { PRIORITIES, STATUSES } from "../../constants";
 import { DeleteBidButton } from "../../components";
 import { Button, Input, Form, Select } from "antd";
@@ -55,25 +55,40 @@ export const BidEditForm = ({
   const [newStatus, setNewStatus] = useState(status);
   const [isDisabled, setIsDisabled] = useState(true);
 
-  //   const handleClickSave = () => {
-  //     const { title, content, priority, status } = form.getFieldsValue();
+  const handleClickSave = () => {
+    const { regNumber, title, content, priority, status, implementer } =
+      form.getFieldsValue();
 
-  //     if (isEditing) {
-  //       server
-  //         .editPost(id, title, content, dbURLs)
-  //         .then(({ res }) => {
-  //           dispatch(editPost(res));
-  //         })
-  //         .then(() => {
-  //           navigate(`/bid/${id}`);
-  //         });
-  //     } else {
-  //       server.editPost(id, title, content, dbURLs).then(({ res }) => {
-  //         dispatch(setPost(res));
-  //         navigate(`/bid/${res.id}`);
-  //       });
-  //     }
-  //   };
+    if (isEditing) {
+      request(`/api/bids/${id}`, "PATCH", {
+        regNumber,
+        title,
+        content,
+        priority,
+        status,
+        implementer,
+      })
+        .then(({ data }) => {
+          dispatch(editBid(data));
+        })
+        .then(() => {
+          navigate(`/bids/${id}`);
+        });
+    } else {
+      request("/api/bids", "POST", {
+        regNumber,
+        title,
+        content,
+        priority,
+        status,
+        implementer,
+      }).then(({ data }) => {
+        console.log(implementer, title);
+        dispatch(setBid(data));
+        navigate(`/bids/${data.id}`);
+      });
+    }
+  };
 
   useLayoutEffect(() => {
     form.resetFields();
@@ -81,7 +96,7 @@ export const BidEditForm = ({
     form.setFieldsValue({
       title: title || "",
       content: content || "",
-      status: status || STATUSES[0].id,
+      status: status || 0,
       priority: priority || PRIORITIES[0],
       implementer: implementer || currentUserLogin,
     });
@@ -110,17 +125,17 @@ export const BidEditForm = ({
     setIsDisabled(false);
   };
 
-  const handleStatusSelectChange = (value) => {
-    if (value === status) {
-      setIsDisabled(true);
-      return;
-    }
-    setNewStatus(value);
-    setIsDisabled(false);
-  };
+  //   const handleStatusSelectChange = (value) => {
+  //     if (value === status) {
+  //       setIsDisabled(true);
+  //       return;
+  //     }
+  //     setNewStatus(value);
+  //     setIsDisabled(false);
+  //   };
 
   const handleImplementerSelectChange = (value) => {
-    if (value === currentUser) {
+    if (value === currentUserLogin) {
       setIsDisabled(true);
       return;
     }
@@ -136,7 +151,7 @@ export const BidEditForm = ({
       <Form
         form={form}
         name="wrap"
-        // onFinish={handleClickSave}
+        onFinish={handleClickSave}
         labelCol={{
           flex: "110px",
         }}
@@ -147,6 +162,20 @@ export const BidEditForm = ({
         }}
         colon={false}
       >
+        <section className="bid-edit-form__regNumber-edit">
+          <Form.Item
+            name="regNumber"
+            label="Номер заявки:"
+            rules={[
+              {
+                required: true,
+              },
+            ]}
+          >
+            <Input placeholder="Введите номер заявки..." />
+          </Form.Item>
+        </section>
+
         <section className="bid-edit-form__title-edit">
           <Form.Item
             name="title"
@@ -181,7 +210,15 @@ export const BidEditForm = ({
         </section>
 
         <section className="bid-edit-form__priority-edit">
-          <Form.Item name="priority" label="Приоритет:">
+          <Form.Item
+            name="priority"
+            label="Приоритет:"
+            rules={[
+              {
+                required: true,
+              },
+            ]}
+          >
             <Select
               defaultValue={PRIORITIES[priority]}
               onChange={handlePrioritySelectChange}
@@ -194,22 +231,39 @@ export const BidEditForm = ({
           </Form.Item>
         </section>
 
-        <section className="bid-edit-form__status-edit">
-          <Form.Item name="status" label="Статус:">
+        {/* <section className="bid-edit-form__status-edit">
+          <Form.Item
+            name="status"
+            label="Статус:"
+            rules={[
+              {
+                required: true,
+              },
+            ]}
+          >
             <Select
-              defaultValue={STATUSES[status].id}
-              onChange={handleStatusSelectChange}
+              defaultValue={STATUSES[status]}
+              disabled={true}
+              //   onChange={handleStatusSelectChange}
               options={Object.entries(STATUSES).map((status) => ({
                 key: status[0],
                 value: status[0],
-                label: status[1].id,
+                label: status[0],
               }))}
             />
           </Form.Item>
-        </section>
+        </section> */}
 
         <section className="bid-edit-form__implementer-edit">
-          <Form.Item name="implementer" label="Исполнитель:">
+          <Form.Item
+            name="implementer"
+            label="Исполнитель:"
+            rules={[
+              {
+                required: true,
+              },
+            ]}
+          >
             <Select
               defaultValue={currentUserLogin}
               onChange={handleImplementerSelectChange}

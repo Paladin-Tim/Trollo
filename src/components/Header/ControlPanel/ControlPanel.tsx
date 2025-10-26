@@ -5,6 +5,7 @@ import { selectUserRole, selectUserLogin } from "../../../redux/selectors";
 import { logout } from "../../../redux/actions";
 import { Avatar, Button } from "antd";
 import { LoginOutlined, LogoutOutlined } from "@ant-design/icons";
+import { ROLES } from "../../../constants";
 
 const ColorList = [
   "#f56a00",
@@ -31,7 +32,7 @@ export const ControlPanel = () => {
 
   return (
     <section className="header__control-panel">
-      {roleId === 3 ? (
+      {roleId !== ROLES.ADMIN && roleId !== ROLES.EMPLOYEE ? (
         <Link to="/login">
           <Button type="primary" icon={<LoginOutlined />}>
             Войти
