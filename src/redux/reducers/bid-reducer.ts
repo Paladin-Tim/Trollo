@@ -26,6 +26,15 @@ export const bidReducer = (state = initialState, { type, payload }) => {
     case ACTION_TYPES.ADD_COMMENT:
       return { ...state, comments: { ...state.comments, ...payload } };
     case ACTION_TYPES.DELETE_COMMENT:
+      // console.log(
+      //   Object.values(state.comments).find(
+      //     (comment) => comment.id === payload.comment_id
+      //   )
+      // );
+      // const x = Object.values(state.comments).find(
+      //   (comment) => comment.id === payload.comment_id
+      // );
+      console.log(state.comments);
       delete state.comments[payload.comment_id];
       return { ...state };
     default:

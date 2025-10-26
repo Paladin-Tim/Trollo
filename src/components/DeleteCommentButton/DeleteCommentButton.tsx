@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useDispatch } from "react-redux";
-import { deleteCommentAsync } from "../../redux/actions";
+import { deleteComment } from "../../redux/actions";
 import { request } from "../../utils/request";
 import { Button, Modal } from "antd";
 import { DeleteOutlined } from "@ant-design/icons";
@@ -15,7 +15,9 @@ export const DeleteCommentButton = ({ postId, commentId }) => {
   };
 
   const handleRemoveComment = (postId, commentId) => {
-    dispatch(deleteCommentAsync(postId, commentId));
+    request(`/api/bids/${postId}/comments/${commentId}`, "DELETE").then(() => {
+      dispatch(deleteComment(commentId));
+    });
 
     setModalOpen(false);
   };
