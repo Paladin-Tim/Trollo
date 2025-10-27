@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { selectUserRole } from "../../redux/selectors";
-import { addComment, setBid } from "../../redux/actions";
+import { addComment } from "../../redux/actions";
 import { request } from "../../utils/request";
 import { Comment } from "./comment";
 import { Button, Input } from "antd";
@@ -21,7 +21,6 @@ export const BidComments = ({ comments, bidId }) => {
     request(`/api/bids/${bidId}/comments`, "POST", { content: comment }).then(
       ({ data }) => {
         dispatch(addComment(data));
-        // dispatch(setBid(bidId));
         setComment("");
       }
     );
@@ -47,7 +46,6 @@ export const BidComments = ({ comments, bidId }) => {
         </article>
         {userRole !== ROLES.GUEST && (
           <article className="bid__new-comment">
-            {console.log(userRole)}
             <TextArea
               value={comment}
               placeholder="Comment..."

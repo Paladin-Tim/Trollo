@@ -11,7 +11,7 @@ const onSearch: SearchProps["onSearch"] = (value, _e, info) =>
 export const SearchBar = () => {
   return (
     <section className="header__search-bar">
-      <Search placeholder="input search text" onSearch={onSearch} enterButton />
+      <Search placeholder="Поиск заявок" onSearch={onSearch} enterButton />
     </section>
   );
 };

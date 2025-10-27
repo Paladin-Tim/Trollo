@@ -15,28 +15,22 @@ const initialState = {
 
 export const bidReducer = (state = initialState, { type, payload }) => {
   switch (type) {
-    case ACTION_TYPES.EDIT_POST:
+    case ACTION_TYPES.EDIT_BID:
       return { ...state, ...payload };
     case ACTION_TYPES.SET_BID:
       return { ...state, ...payload };
-    case ACTION_TYPES.RESET_POST:
+    case ACTION_TYPES.RESET_BID:
       return initialState;
-    case ACTION_TYPES.DELETE_POST:
+    case ACTION_TYPES.DELETE_BID:
       return initialState;
     case ACTION_TYPES.ADD_COMMENT:
       return { ...state, comments: { ...state.comments, ...payload } };
-    case ACTION_TYPES.DELETE_COMMENT:
-      // console.log(
-      //   Object.values(state.comments).find(
-      //     (comment) => comment.id === payload.comment_id
-      //   )
-      // );
-      // const x = Object.values(state.comments).find(
-      //   (comment) => comment.id === payload.comment_id
-      // );
-      console.log(state.comments);
-      delete state.comments[payload.comment_id];
-      return { ...state };
+    case ACTION_TYPES.DELETE_COMMENT: {
+      const newComments = Object.values(state.comments).filter(
+        (comment) => comment.id !== payload.comment_id
+      );
+      return { ...state, comments: newComments };
+    }
     default:
       return state;
   }

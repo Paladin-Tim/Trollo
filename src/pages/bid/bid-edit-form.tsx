@@ -1,17 +1,11 @@
 import { useLayoutEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-// import { server } from "../../bff";
 import { getUsers, setBid, editBid } from "../../redux/actions";
 import { PRIORITIES, STATUSES } from "../../constants";
 import { DeleteBidButton } from "../../components";
 import { Button, Input, Form, Select } from "antd";
-import {
-  SaveOutlined,
-  PlusOutlined,
-  MinusCircleOutlined,
-  SendOutlined,
-} from "@ant-design/icons";
+import { SaveOutlined, SendOutlined } from "@ant-design/icons";
 import {
   selectUserId,
   selectUserLogin,
@@ -42,7 +36,7 @@ const formItemLayout = {
 };
 
 export const BidEditForm = ({
-  bid: { id, title, content, priority, status, implementer },
+  bid: { id, regNumber, title, content, priority, status, implementer },
   isEditing,
 }) => {
   const [form] = Form.useForm();
@@ -54,6 +48,45 @@ export const BidEditForm = ({
   const [newPriority, setNewPriority] = useState(priority);
   const [newStatus, setNewStatus] = useState(status);
   const [isDisabled, setIsDisabled] = useState(true);
+
+  const usersList = useSelector(selectUsersList);
+  const currentUserLogin = useSelector(selectUserLogin);
+
+  const regNumberPlug = new Date().getFullYear() + "/";
+
+  useLayoutEffect(() => {
+    form.resetFields();
+
+    form.setFieldsValue({
+      regNumber: regNumber || regNumberPlug,
+      title: title || "",
+      content: content || "",
+      status: status || 0,
+      priority: priority || PRIORITIES[0],
+      implementer: implementer || currentUserLogin,
+    });
+
+    request("api/users").then(({ error, data }) => {
+      if (error) {
+        // setError(error); *TODO
+        setIsLoading(false);
+      } else {
+        dispatch(getUsers(data));
+        // setError(null); *TODO
+        // setIsLoading(false); *TODO
+      }
+    });
+  }, [
+    form,
+    dispatch,
+    currentUserLogin,
+    title,
+    content,
+    status,
+    priority,
+    implementer,
+    regNumber,
+  ]);
 
   const handleClickSave = () => {
     const { regNumber, title, content, priority, status, implementer } =
@@ -83,38 +116,12 @@ export const BidEditForm = ({
         status,
         implementer,
       }).then(({ data }) => {
-        console.log(implementer, title);
         dispatch(setBid(data));
+        // console.log(data);
         navigate(`/bids/${data.id}`);
       });
     }
   };
-
-  useLayoutEffect(() => {
-    form.resetFields();
-
-    form.setFieldsValue({
-      title: title || "",
-      content: content || "",
-      status: status || 0,
-      priority: priority || PRIORITIES[0],
-      implementer: implementer || currentUserLogin,
-    });
-
-    request("api/users").then(({ error, data }) => {
-      if (error) {
-        // setError(error); *TODO
-        setIsLoading(false);
-      } else {
-        dispatch(getUsers(data));
-        // setError(null); *TODO
-        // setIsLoading(false); *TODO
-      }
-    });
-  }, [form]);
-
-  const usersList = useSelector(selectUsersList);
-  const currentUserLogin = useSelector(selectUserLogin);
 
   const handlePrioritySelectChange = (value) => {
     if (value === priority) {
@@ -172,7 +179,10 @@ export const BidEditForm = ({
               },
             ]}
           >
-            <Input placeholder="Введите номер заявки..." />
+            <Input
+              placeholder="Введите номер заявки..."
+              defaultValue={regNumberPlug}
+            />
           </Form.Item>
         </section>
 
@@ -265,7 +275,7 @@ export const BidEditForm = ({
             ]}
           >
             <Select
-              defaultValue={currentUserLogin}
+              //   defaultValue={currentUserLogin}
               onChange={handleImplementerSelectChange}
               options={Object.values(usersList).map((user) => ({
                 key: user.id,
