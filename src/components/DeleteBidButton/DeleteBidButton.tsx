@@ -1,10 +1,10 @@
 import { useState } from "react";
 import { useDispatch } from "react-redux";
-// import { server } from "../../bff";
 import { deleteBid } from "../../redux/actions";
 import { useNavigate } from "react-router-dom";
 import { Button, Modal } from "antd";
 import { DeleteOutlined } from "@ant-design/icons";
+import { request } from "../../utils/request";
 
 export const DeleteBidButton = ({ bidId }) => {
   const [modalOpen, setModalOpen] = useState(false);
@@ -17,17 +17,23 @@ export const DeleteBidButton = ({ bidId }) => {
     setModalOpen(true);
   };
 
-  //   const handleRemovePost = (postId) => {
-  //     server.removePost(postId).then(({ res }) => {
-  //       dispatch(deletePost(res));
-  //     });
-  //     setModalOpen(false);
-  //     navigate("/");
-  //   };
+  const handleRemoveBid = async (bidId) => {
+    try {
+      await request(`/api/bids/${bidId}`, "DELETE");
 
-  //   const handleOk = () => {
-  //     handleRemovePost(postId);
-  //   };
+      // If we get here, deletion was successful
+      dispatch(deleteBid(bidId));
+      setModalOpen(false);
+      navigate("/");
+    } catch (error) {
+      console.error("Error deleting bid:", error);
+      setModalOpen(false);
+    }
+  };
+
+  const handleOk = () => {
+    handleRemoveBid(bidId);
+  };
 
   const handleCancel = () => {
     setModalOpen(false);
@@ -39,7 +45,7 @@ export const DeleteBidButton = ({ bidId }) => {
       <Modal
         title="Delete post"
         open={modalOpen}
-        // onOk={handleOk}
+        onOk={handleOk}
         onCancel={handleCancel}
       >
         <p>

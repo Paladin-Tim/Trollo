@@ -9,8 +9,8 @@ import { BidComments } from "./bid-comments";
 import { BidEditForm } from "./bid-edit-form";
 import { Loader } from "../../components/Loader";
 import { GlobalError } from "../../components";
-import "./bid.scss";
 import { ROLES, globalErrors } from "../../constants";
+import "./bid.scss";
 
 export const Bid = () => {
   const bid = useSelector(selectBid);

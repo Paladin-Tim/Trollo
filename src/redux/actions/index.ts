@@ -7,7 +7,7 @@ export * from "./save-user-role";
 export * from "./get-bids";
 export * from "./edit-bid";
 export * from "./set-bid";
-export * from "./reset-post";
+export * from "./reset-bid";
 export * from "./delete-bid";
 export * from "./add-comment";
 export * from "./delete-comment";
