@@ -12,3 +12,4 @@ export * from "./delete-bid";
 export * from "./add-comment";
 export * from "./delete-comment";
 export * from "./delete-comment-async";
+export * from "./search-bids";

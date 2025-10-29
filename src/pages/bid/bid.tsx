@@ -64,6 +64,7 @@ export const Bid = () => {
       ) : (
         <article className="content__block bid">
           <BidContent bid={bid} />
+          {console.log(params.id)}
           <BidComments comments={bid.comments} bidId={bid.id} />
         </article>
       )}

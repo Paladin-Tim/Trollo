@@ -5,6 +5,7 @@ const initialState = {};
 export const bidsReducer = (state = initialState, { type, payload }) => {
   switch (type) {
     case ACTION_TYPES.GET_BIDS:
+      // console.log(state);
       return { ...payload };
     default:
       return state;
