@@ -51,6 +51,7 @@ export const BidEditForm = ({
 
   const usersList = useSelector(selectUsersList);
   const currentUserLogin = useSelector(selectUserLogin);
+  const currentUserId = useSelector(selectUserId);
 
   const regNumberPlug = new Date().getFullYear() + "/";
 
@@ -63,7 +64,7 @@ export const BidEditForm = ({
       content: content || "",
       status: status || 0,
       priority: priority || PRIORITIES[0],
-      implementer: implementer || currentUserLogin,
+      implementer: implementer || currentUserId,
     });
 
     request("api/users").then(({ error, data }) => {
@@ -86,6 +87,7 @@ export const BidEditForm = ({
     priority,
     implementer,
     regNumber,
+    regNumberPlug,
   ]);
 
   const handleClickSave = () => {
@@ -117,7 +119,6 @@ export const BidEditForm = ({
         implementer,
       }).then(({ data }) => {
         dispatch(setBid(data));
-        // console.log(data);
         navigate(`/bids/${data.id}`);
       });
     }
@@ -132,14 +133,14 @@ export const BidEditForm = ({
     setIsDisabled(false);
   };
 
-  //   const handleStatusSelectChange = (value) => {
-  //     if (value === status) {
-  //       setIsDisabled(true);
-  //       return;
-  //     }
-  //     setNewStatus(value);
-  //     setIsDisabled(false);
-  //   };
+  const handleStatusSelectChange = (value) => {
+    if (value === status) {
+      setIsDisabled(true);
+      return;
+    }
+    setNewStatus(value);
+    setIsDisabled(false);
+  };
 
   const handleImplementerSelectChange = (value) => {
     if (value === currentUserLogin) {
@@ -241,28 +242,29 @@ export const BidEditForm = ({
           </Form.Item>
         </section>
 
-        {/* <section className="bid-edit-form__status-edit">
-          <Form.Item
-            name="status"
-            label="Статус:"
-            rules={[
-              {
-                required: true,
-              },
-            ]}
-          >
-            <Select
-              defaultValue={STATUSES[status]}
-              disabled={true}
-              //   onChange={handleStatusSelectChange}
-              options={Object.entries(STATUSES).map((status) => ({
-                key: status[0],
-                value: status[0],
-                label: status[0],
-              }))}
-            />
-          </Form.Item>
-        </section> */}
+        {isEditing && (
+          <section className="bid-edit-form__status-edit">
+            <Form.Item
+              name="status"
+              label="Статус:"
+              rules={[
+                {
+                  required: true,
+                },
+              ]}
+            >
+              <Select
+                defaultValue={STATUSES[status]}
+                onChange={handleStatusSelectChange}
+                options={Object.entries(STATUSES).map((status) => ({
+                  key: status[0],
+                  value: status[0],
+                  label: status[1].id,
+                }))}
+              />
+            </Form.Item>
+          </section>
+        )}
 
         <section className="bid-edit-form__implementer-edit">
           <Form.Item
