@@ -5,14 +5,18 @@ import { getUsers, setBid, editBid } from "../../redux/actions";
 import { PRIORITIES, STATUSES } from "../../constants";
 import { DeleteBidButton } from "../../components";
 import { Button, Input, Form, Select } from "antd";
-import { SaveOutlined, SendOutlined } from "@ant-design/icons";
+import {
+  SaveOutlined,
+  SendOutlined,
+  StepBackwardOutlined,
+} from "@ant-design/icons";
 import {
   selectUserId,
   selectUserLogin,
   selectUsersList,
 } from "../../redux/selectors";
 import { request } from "../../utils/request";
-// import "./bid-edit-form.scss";
+import "./bid-edit-form.scss";
 
 const { TextArea } = Input;
 
@@ -67,20 +71,27 @@ export const BidEditForm = ({
       implementer: implementer || currentUserId,
     });
 
-    request("api/users").then(({ error, data }) => {
-      if (error) {
-        // setError(error); *TODO
-        setIsLoading(false);
+    request("api/users").then((response) => {
+      // Handle different response structures
+      if (response.error) {
+        console.log("Has error property");
+        // setIsLoading(false);
+      } else if (response.data) {
+        console.log("Has data property, dispatching");
+        dispatch(getUsers(response.data));
+        // setIsLoading(false);
+      } else if (Array.isArray(response)) {
+        console.log("Response is direct array, dispatching");
+        dispatch(getUsers(response));
+        // setIsLoading(false);
       } else {
-        dispatch(getUsers(data));
-        // setError(null); *TODO
-        // setIsLoading(false); *TODO
+        console.log("Unexpected response structure:", response);
+        // setIsLoading(false);
       }
     });
   }, [
     form,
     dispatch,
-    currentUserLogin,
     title,
     content,
     status,
@@ -88,6 +99,7 @@ export const BidEditForm = ({
     implementer,
     regNumber,
     regNumberPlug,
+    currentUserId,
   ]);
 
   const handleClickSave = () => {
@@ -153,9 +165,15 @@ export const BidEditForm = ({
 
   return (
     <article className="bid-edit-form__content">
-      <h2 className="blog-bid__title">
-        {isEditing ? "Редактировать заявку" : "Добавить новую заявку"}
-      </h2>
+      <section className="bid-edit-form__header">
+        <h2 className="bid-edit-form__title">
+          {isEditing ? "Редактировать заявку" : "Добавить новую заявку"}
+        </h2>
+        <Button
+          icon={<StepBackwardOutlined />}
+          onClick={() => navigate(-1)}
+        ></Button>
+      </section>
       <Form
         form={form}
         name="wrap"

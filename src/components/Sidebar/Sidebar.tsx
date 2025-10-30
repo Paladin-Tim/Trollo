@@ -11,18 +11,18 @@ import "./Sidebar.scss";
 export const Sidebar = () => {
   return (
     <article className="sidebar">
-      <Space direction="vertical">
-        <Logo />
-        <Link to="/">
-          <Button icon={<FileTextOutlined />}>Заявки</Button>
-        </Link>
-        <Link to="/users">
-          <Button icon={<UserOutlined />}>Сотрудники</Button>
-        </Link>
-        <Link to="/settings">
-          <Button icon={<SettingOutlined />}>Настройки</Button>
-        </Link>
-      </Space>
+      <Logo />
+      <section className="sidebar__buttons">
+        <Button className="button" icon={<FileTextOutlined />}>
+          <Link to="/">Заявки</Link>
+        </Button>
+        <Button className="button" icon={<UserOutlined />}>
+          <Link to="/users">Сотрудники</Link>
+        </Button>
+        <Button className="button" icon={<SettingOutlined />}>
+          <Link to="/settings">Настройки</Link>
+        </Button>
+      </section>
     </article>
   );
 };

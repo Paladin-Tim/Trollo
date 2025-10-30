@@ -11,6 +11,7 @@ import { Loader } from "../../components/Loader";
 import { GlobalError } from "../../components";
 import { ROLES, globalErrors } from "../../constants";
 import "./bid.scss";
+import TimeTracker from "../../components/TimeTracker/TimeTracker";
 
 export const Bid = () => {
   const bid = useSelector(selectBid);
@@ -64,8 +65,10 @@ export const Bid = () => {
       ) : (
         <article className="content__block bid">
           <BidContent bid={bid} />
-          {console.log(params.id)}
-          <BidComments comments={bid.comments} bidId={bid.id} />
+          <section className="bid__auxiliary">
+            <BidComments comments={bid.comments} bidId={bid.id} />
+            <TimeTracker pageId={bid.regNumber} pageTitle={bid.title} />
+          </section>
         </article>
       )}
     </>

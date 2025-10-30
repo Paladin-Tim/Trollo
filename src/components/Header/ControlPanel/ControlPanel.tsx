@@ -6,6 +6,7 @@ import { logout } from "../../../redux/actions";
 import { Avatar, Button } from "antd";
 import { LoginOutlined, LogoutOutlined } from "@ant-design/icons";
 import { ROLES } from "../../../constants";
+import "./ControlPanel.scss";
 
 const ColorList = [
   "#f56a00",
@@ -39,25 +40,27 @@ export const ControlPanel = () => {
     <section className="header__control-panel">
       {roleId === ROLES.GUEST ? (
         <Link to="/login">
-          <Button type="primary" icon={<LoginOutlined />}>
+          <Button type="primary" icon={<LoginOutlined />} className="login">
             Войти
           </Button>
         </Link>
       ) : (
-        <>
+        <section className="user">
           <Avatar
             style={{ backgroundColor: color, verticalAlign: "middle" }}
             size="large"
             gap={2}
+            className="user__avatar"
           >
-            {login}
+            {login.slice(0, 1).toUpperCase()}
           </Avatar>
           <Button
             type="primary"
             icon={<LogoutOutlined />}
             onClick={() => handleLogOutClick()}
+            className="user__logout"
           ></Button>
-        </>
+        </section>
       )}
     </section>
   );

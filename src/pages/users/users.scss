@@ -1,0 +1,55 @@
+.usersTab {
+  background-color: #fff;
+  border-radius: 15px;
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  color: #000;
+
+  &__wrapper {
+    margin: 0 auto;
+    padding: 2rem;
+    text-align: center;
+    width: 65%;
+
+    @media (max-width: 768px) {
+      width: 100%;
+      padding: 0;
+    }
+  }
+
+  &__header {
+    display: grid;
+    grid-template-columns: repeat(1, 1fr 1fr 1fr 0.2fr 0.2fr);
+    justify-content: space-between;
+    justify-items: start;
+    padding-bottom: 1.3rem;
+    font-weight: 600;
+  }
+
+  & .userInfo {
+    display: flex;
+    justify-content: space-between;
+    gap: 2rem;
+
+    &__wrapper {
+      display: grid;
+      grid-template-columns: repeat(1, 1fr 1fr 1fr 0.2fr 0.2fr);
+      justify-items: start;
+      border-bottom: solid 1px #00000025;
+      padding: 0.8rem 0;
+    }
+
+    &__login {
+      flex-grow: 1;
+    }
+
+    &__regDate {
+      flex-grow: 1;
+    }
+
+    &__role {
+      width: 80%;
+    }
+  }
+}

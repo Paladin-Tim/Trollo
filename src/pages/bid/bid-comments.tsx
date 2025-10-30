@@ -48,17 +48,18 @@ export const BidComments = ({ comments, bidId }) => {
           <article className="bid__new-comment">
             <TextArea
               value={comment}
-              placeholder="Comment..."
+              placeholder="Комментарий..."
               autoSize={{
                 minRows: 4,
               }}
               onChange={({ target }) => setComment(target.value)}
             ></TextArea>
             <Button
+              type="primary"
               icon={<SendOutlined />}
               onClick={() => handleAddComment(bidId)}
             >
-              Send
+              Отправить
             </Button>
           </article>
         )}
