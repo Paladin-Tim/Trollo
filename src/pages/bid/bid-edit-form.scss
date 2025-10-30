@@ -1,0 +1,13 @@
+.bid-edit-form {
+  padding: 1rem 5rem 1rem 1rem;
+
+  &__header {
+    display: flex;
+    justify-content: space-between;
+  }
+
+  &__control-panel {
+    display: flex;
+    gap: 2rem;
+  }
+}

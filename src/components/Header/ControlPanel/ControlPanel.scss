@@ -1,0 +1,18 @@
+.header__control-panel {
+  .user {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+
+    &__logout {
+      color: #000 !important;
+      background: none !important;
+      border: none !important;
+      padding: 0;
+
+      .ant-btn-icon {
+        font-size: 24px !important;
+      }
+    }
+  }
+}

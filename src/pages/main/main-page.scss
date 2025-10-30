@@ -1,29 +1,57 @@
-.bids-list {
-  &__header {
-    display: flex;
-    gap: 2rem;
+.content {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+
+  .add-menu {
+    padding: 1rem;
+    &__button {
+      border-radius: 16px !important;
+      font-size: 18px !important;
+      padding: 1.2rem 1rem !important;
+    }
   }
 
-  &__link {
-    text-decoration: none;
-    color: #000;
+  .bids-list-wrapper {
+    padding: 1rem;
   }
 
-  &__item {
-    display: flex;
-    align-items: center;
-    gap: 2rem;
-    border-bottom: 2px solid #000;
-    text-decoration: none;
-
-    .badge {
-      width: 5px;
-      min-height: 66px;
+  .bids-list {
+    &__header {
+      display: grid;
+      grid-template-columns: repeat(1, 1fr 3fr 1fr 1fr);
+      justify-content: space-between;
+      justify-items: start;
+      padding-bottom: 1.3rem;
+      font-weight: 600;
     }
 
-    .status {
-      padding: 0.2rem 0.5rem;
-      border-radius: 15px;
+    &__link {
+      text-decoration: none;
+      color: #000;
+    }
+
+    &__item {
+      display: grid;
+      grid-template-columns: repeat(1, 1fr 3fr 1fr 1fr);
+      justify-items: start;
+      align-items: center;
+      border-bottom: solid 1px #00000025;
+      padding: 0.8rem 0;
+
+      &:hover {
+        box-shadow: 0px 3px 5px 0px rgba(0, 0, 0, 0.2);
+      }
+
+      // .badge {
+      //   width: 5px;
+      //   min-height: 66px;
+      // }
+
+      .status {
+        padding: 0.2rem 0.5rem;
+        border-radius: 15px;
+      }
     }
   }
 }

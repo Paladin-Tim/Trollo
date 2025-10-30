@@ -62,7 +62,11 @@ export const MainPage = () => {
         <>
           <article className="content__block add-menu">
             <Link to="/bid">
-              <Button disabled={userRole === ROLES.GUEST}>
+              <Button
+                className="add-menu__button"
+                type="primary"
+                disabled={userRole === ROLES.GUEST}
+              >
                 Создать заявку
               </Button>
             </Link>

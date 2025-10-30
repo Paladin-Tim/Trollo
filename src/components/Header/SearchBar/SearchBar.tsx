@@ -2,6 +2,7 @@ import { Input } from "antd";
 import type { GetProps } from "antd";
 import { useDispatch } from "react-redux";
 import { searchBids } from "../../../redux/actions/search-bids";
+import "./SearchBar.scss";
 
 type SearchProps = GetProps<typeof Input.Search>;
 

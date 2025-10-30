@@ -5,7 +5,7 @@ import { Button, Select } from "antd";
 import { SaveOutlined, DeleteOutlined } from "@ant-design/icons";
 import { request } from "../../../utils/request";
 
-export const UserRow = ({ id, login, registredAt, roleId, roles }) => {
+export const UserRow = ({ id, login, registeredAt, roleId, roles }) => {
   const [newRoleId, setNewRoleId] = useState(roleId);
   const [isDisabled, setIsDisabled] = useState(true);
 
@@ -38,7 +38,13 @@ export const UserRow = ({ id, login, registredAt, roleId, roles }) => {
   return (
     <section className="userInfo__wrapper">
       <div className="userInfo__login">{login}</div>
-      <div className="userInfo__regDate">{registredAt}</div>
+      <div className="userInfo__regDate">
+        {new Date(registeredAt).toLocaleDateString("default", {
+          month: "long",
+          year: "numeric",
+          day: "numeric",
+        })}
+      </div>
       <Select
         className="userInfo__role"
         defaultValue={roleId}

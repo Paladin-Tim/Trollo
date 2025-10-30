@@ -10,8 +10,8 @@ export const Comment = ({ id, author_name, content, published_at, bid_id }) => {
   const userRole = useSelector(selectUserRole);
 
   return (
-    <article className="blog-post__comment-wrapper">
-      <section className="blog-post__comment">
+    <article className="bid__comment-wrapper">
+      <section className="bid__comment">
         <div className="author">
           <UserOutlined />
           <span>{author_name}</span>

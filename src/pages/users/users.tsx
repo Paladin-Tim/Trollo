@@ -7,7 +7,7 @@ import { UserRow } from "./user-row/user-row";
 import { GlobalError } from "../../components";
 import { ROLES } from "../../constants";
 import { Loader } from "../../components/Loader";
-// import "./users.scss";
+import "./users.scss";
 
 export const UsersPage = () => {
   const [roles, setRoles] = useState({});
@@ -40,23 +40,23 @@ export const UsersPage = () => {
         <GlobalError error={error} />
       ) : (
         <>
-          <h1>Users</h1>
+          <h1>Пользователи</h1>
           <article className="usersTab">
             <section className="usersTab__header">
-              <div className="usersTab__colHeader">User name (login)</div>
-              <div className="usersTab__colHeader">Registartion date</div>
-              <div className="usersTab__colHeader">Role</div>
+              <div className="usersTab__colHeader">Имя (логин)</div>
+              <div className="usersTab__colHeader">Дата регистрации</div>
+              <div className="usersTab__colHeader">Роль</div>
             </section>
             {isLoading ? (
               <Loader />
             ) : (
               Object.values(usersList).map(
-                ({ id, login, registredAt, roleId }) => (
+                ({ id, login, registeredAt, roleId }) => (
                   <UserRow
                     key={id}
                     id={id}
                     login={login}
-                    registredAt={registredAt}
+                    registeredAt={registeredAt}
                     roleId={roleId}
                     roles={Object.values(roles).filter(
                       ({ id }) => id !== ROLES.GUEST

@@ -1,0 +1,6 @@
+ul.ant-list-item-action {
+  @media (max-width: 768px) {
+    display: flex;
+    flex-direction: column;
+  }
+}
