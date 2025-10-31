@@ -1,5 +1,10 @@
+import type { ReactNode } from "react";
 import "./PageContent.scss";
 
-export const PageContent = ({ children }) => {
+interface PageContentProps {
+  children?: ReactNode;
+}
+
+export const PageContent = ({ children }: PageContentProps) => {
   return <main className="main">{children}</main>;
 };

@@ -39,10 +39,23 @@ const formItemLayout = {
   },
 };
 
+interface BidEditFormProps {
+  bid: {
+    id: string;
+    regNumber: string;
+    title: string;
+    content: string;
+    priority: number;
+    status: number;
+    implementer: string;
+  };
+  isEditing: boolean;
+}
+
 export const BidEditForm = ({
   bid: { id, regNumber, title, content, priority, status, implementer },
   isEditing,
-}) => {
+}: BidEditFormProps) => {
   const [form] = Form.useForm();
 
   const dispatch = useDispatch();
@@ -136,7 +149,7 @@ export const BidEditForm = ({
     }
   };
 
-  const handlePrioritySelectChange = (value) => {
+  const handlePrioritySelectChange = (value: number) => {
     if (value === priority) {
       setIsDisabled(true);
       return;
@@ -145,7 +158,7 @@ export const BidEditForm = ({
     setIsDisabled(false);
   };
 
-  const handleStatusSelectChange = (value) => {
+  const handleStatusSelectChange = (value: number) => {
     if (value === status) {
       setIsDisabled(true);
       return;
@@ -154,7 +167,7 @@ export const BidEditForm = ({
     setIsDisabled(false);
   };
 
-  const handleImplementerSelectChange = (value) => {
+  const handleImplementerSelectChange = (value: number) => {
     if (value === currentUserLogin) {
       setIsDisabled(true);
       return;

@@ -10,14 +10,26 @@ import { ROLES } from "../../constants";
 
 const { TextArea } = Input;
 
-export const BidComments = ({ comments, bidId }) => {
+interface iComment {
+  id: string;
+  content: string;
+  author: string;
+  publishedAt: string;
+}
+
+interface BidCommentsProps {
+  comments: iComment[];
+  bidId: string;
+}
+
+export const BidComments = ({ comments, bidId }: BidCommentsProps) => {
   const [comment, setComment] = useState("");
 
   const userRole = useSelector(selectUserRole);
 
   const dispatch = useDispatch();
 
-  const handleAddComment = (bidId) => {
+  const handleAddComment = (bidId: string) => {
     request(`/api/bids/${bidId}/comments`, "POST", { content: comment }).then(
       ({ data }) => {
         dispatch(addComment(data));

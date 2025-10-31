@@ -6,7 +6,11 @@ import { Button, Modal } from "antd";
 import { DeleteOutlined } from "@ant-design/icons";
 import { request } from "../../utils/request";
 
-export const DeleteBidButton = ({ bidId }) => {
+interface DeleteBidButtonProps {
+  bidId: string;
+}
+
+export const DeleteBidButton = ({ bidId }: DeleteBidButtonProps) => {
   const [modalOpen, setModalOpen] = useState(false);
 
   const dispatch = useDispatch();
@@ -17,7 +21,7 @@ export const DeleteBidButton = ({ bidId }) => {
     setModalOpen(true);
   };
 
-  const handleRemoveBid = async (bidId) => {
+  const handleRemoveBid = async (bidId: string) => {
     try {
       await request(`/api/bids/${bidId}`, "DELETE");
 

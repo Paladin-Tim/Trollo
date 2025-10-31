@@ -6,6 +6,22 @@ import { Button } from "antd";
 import { EditOutlined, StepBackwardOutlined } from "@ant-design/icons";
 import { DeleteBidButton } from "../../components";
 
+interface iBid {
+  id: string;
+  regNumber: string;
+  title: string;
+  content: string;
+  status: number;
+  priority: number;
+  author: string;
+  implementer: string;
+  publishedAt: string;
+}
+
+interface BidContentProps {
+  bid: iBid;
+}
+
 export const BidContent = ({
   bid: {
     id,
@@ -18,7 +34,7 @@ export const BidContent = ({
     implementer,
     publishedAt,
   },
-}) => {
+}: BidContentProps) => {
   const userRole = useSelector(selectUserRole);
 
   const navigate = useNavigate();
