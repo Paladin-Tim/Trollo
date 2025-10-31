@@ -15,7 +15,11 @@ export const SearchBar = () => {
     dispatch(searchBids(value));
   };
 
-  const handleSearchchange = ({ target }) => {
+  interface SearchChangeEvent {
+    target: HTMLInputElement;
+  }
+
+  const handleSearchChange = ({ target }: SearchChangeEvent): void => {
     if (target.value === "") {
       dispatch(searchBids(""));
     }
@@ -26,7 +30,7 @@ export const SearchBar = () => {
       <Search
         placeholder="Поиск заявок"
         onSearch={(value) => onSearch(value)}
-        onChange={handleSearchchange}
+        onChange={handleSearchChange}
         enterButton
       />
     </section>

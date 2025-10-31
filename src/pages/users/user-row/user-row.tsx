@@ -5,13 +5,32 @@ import { Button, Select } from "antd";
 import { SaveOutlined, DeleteOutlined } from "@ant-design/icons";
 import { request } from "../../../utils/request";
 
-export const UserRow = ({ id, login, registeredAt, roleId, roles }) => {
+interface Role {
+  id: string;
+  name: string;
+}
+
+interface UserRowProps {
+  id: string;
+  login: string;
+  registeredAt: string;
+  roleId: string;
+  roles: Role[];
+}
+
+export const UserRow = ({
+  id,
+  login,
+  registeredAt,
+  roleId,
+  roles,
+}: UserRowProps) => {
   const [newRoleId, setNewRoleId] = useState(roleId);
   const [isDisabled, setIsDisabled] = useState(true);
 
   const dispatch = useDispatch();
 
-  const handleSelectChange = (value) => {
+  const handleSelectChange = (value: string) => {
     if (value === roleId) {
       setIsDisabled(true);
       return;

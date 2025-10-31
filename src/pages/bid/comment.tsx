@@ -5,7 +5,21 @@ import { UserOutlined } from "@ant-design/icons";
 import { convertDate } from "../../utils/convertDate";
 import { ROLES } from "../../constants";
 
-export const Comment = ({ id, author_name, content, published_at, bid_id }) => {
+interface CommentProps {
+  id: string;
+  author_name: string;
+  content: string;
+  published_at: string;
+  bid_id: string;
+}
+
+export const Comment = ({
+  id,
+  author_name,
+  content,
+  published_at,
+  bid_id,
+}: CommentProps) => {
   const userLogin = useSelector(selectUserLogin);
   const userRole = useSelector(selectUserRole);
 
